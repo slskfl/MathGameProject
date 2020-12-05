@@ -34,10 +34,6 @@ public class Reset {
         resetPressed = press;
     }
 
-    public boolean isPressed() {
-        return resetPressed;
-    }
-
     public void draw(Canvas canvas){
         if (resetPressed == true) {
             canvas.drawBitmap(reset0Bitmap, resetX, resetY, null);

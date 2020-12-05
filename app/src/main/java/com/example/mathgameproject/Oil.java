@@ -18,7 +18,6 @@ public class Oil extends GameObject {
         super(mainActivity, mainActivity.surfaceWidth, mainActivity.surfaceHeight);
         this.mainActivity = mainActivity;
         oilBitmap = BitmapFactory.decodeResource(mainActivity.getResources(), R.drawable.oil);
-        isVisible = true;
 
         reset();
     }
@@ -56,9 +55,8 @@ public class Oil extends GameObject {
         }
         y += 4;
         if (y > mainActivity.surfaceHeight) {
-            //화면 밑을 벗어날 경우
             x = (int) (Math.random() * (mainActivity.surfaceWidth - oilBitmap.getWidth())); //X좌표는 랜덤
-            y = 0 - oilBitmap.getHeight();//화면 위에서부터 시작
+            y = 0 - oilBitmap.getHeight();
             isVisible = true;
         }
     }

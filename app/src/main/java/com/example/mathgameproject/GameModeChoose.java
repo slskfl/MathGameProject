@@ -8,10 +8,11 @@ import android.util.Log;
 
 public class GameModeChoose extends GameObject {
     private Bitmap gamemodeBitmap;
-    public boolean isPressedPlus,isPressedMinus;
-    public int plusmodeX, plusmodeY, minusmodeX, minusmodeY, width = 300, height = 300;
+    private Rect plusRect, minusRect;
+    public int plusmode1X, plusmode2X, plusmode3X, plusmodeY;
     public MainActivity mainActivity;
-
+    public boolean isPressedPlus,isPressedMinus;
+    public float x, y ;
 
     public GameModeChoose(MainActivity mainActivity) {
         super(mainActivity, mainActivity.surfaceWidth, mainActivity.surfaceHeight);
@@ -19,21 +20,27 @@ public class GameModeChoose extends GameObject {
         this.mainActivity = mainActivity;
         isPressedPlus = false;
         isPressedMinus = false;
+        x=455;
+        y=255;
 
         gamemodeBitmap = BitmapFactory.decodeResource(mainActivity.getResources(), R.drawable.gamemode);
         setBitmap(gamemodeBitmap);
         alignCenter();
+        plusmode1X =0;
+        plusmode2X = mainActivity.surfaceWidth/2;
+        plusmode3X = mainActivity.surfaceWidth;
 
-
+        plusRect = getRect(455, 255 , 375, 350);
+        minusRect = getRect(915, 255,375, 350);
     }
     public boolean isHitPlus(int x, int y) {
-        if (plusmodeX < x && x < plusmodeX + (gamemodeBitmap.getWidth()/2) && plusmodeY < y && y < plusmodeY + gamemodeBitmap.getHeight()) {
+        if (gamemodeBitmap!=null && this.x < x && x <this.x + gamemodeBitmap.getWidth()/2 && plusmodeY < y && y < plusmodeY + gamemodeBitmap.getHeight()) {
             return true;
         }
         return false;
     }
     public boolean isHitMinus(int x, int y) {
-        if (plusmodeX + gamemodeBitmap.getWidth()/2< x && x < plusmodeX + gamemodeBitmap.getWidth() && plusmodeY < y && y < plusmodeY + gamemodeBitmap.getHeight()) {
+        if (gamemodeBitmap!=null && this.x + gamemodeBitmap.getWidth()/2 < x && x < this.x + gamemodeBitmap.getWidth() && plusmodeY < y && y < plusmodeY + gamemodeBitmap.getHeight()) {
             return true;
         }
         return false;

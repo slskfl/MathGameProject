@@ -69,18 +69,11 @@ public class Balloon {
                 mainActivity.scoreBoard.addPlusScore(-10);
             }
             if (mainActivity.scoreBoard.getMinusAnswer() == number) {
-                //점수에 반영하기 위함.
                 number = (int) (Math.random() * 90) + 10;
                 mainActivity.scoreBoard.addMinusScore(20);
                 mainActivity.scoreBoard.resetAnswer();
             } else if(mainActivity.scoreBoard.getMinusAnswer() != number){
                 mainActivity.scoreBoard.addMinusScore(-10);
-            }
-            if (mainActivity.scoreBoard.getPlusScore() == -70 ) {
-                mainActivity.scoreTOCompleted();
-            }
-            if (mainActivity.scoreBoard.getMinusScore() == -70 ) {
-                mainActivity.scoreTOCompleted();
             }
         }
 

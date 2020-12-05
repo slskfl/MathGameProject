@@ -12,6 +12,7 @@ import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -23,7 +24,6 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
     private SurfaceHolder surfaceHolder;
     private boolean isRunning;
     private int resetCount;
-    private int scoreCount;
 
     public GameMode gameMode;
     public int surfaceWidth, surfaceHeight;
@@ -58,21 +58,13 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         surfaceHolder.addCallback(this);
 
         backgroundmusic = MediaPlayer.create(this, R.raw.backgound);
-        backgroundmusic.setLooping(false);
+        backgroundmusic.setLooping(true);
 
         soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC,0);
 
         accellratormusic = soundPool.load(this, R.raw.accellatormusic,1);
         brakemusic = soundPool.load(this, R.raw.brakemusic,1);
         jumpmusic = soundPool.load(this, R.raw.jumpmusic,1);
-    }
-
-    public void stoneMusic(){
-        soundPool.play(stonemusic,1f,1f,0,0,2f);
-    }
-
-    public void waterMusic(){
-        soundPool.play(watermusic,1f,1f,0,0,2f);
     }
 
     @Override
@@ -118,11 +110,13 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         soundPool.release();
     }
 
+
     public void scoreTOCompleted(){
+
         gameMode = GameMode.Completed;
     }
 
-  public void hitObstacle() {
+    public void hitObstacle() {
         scoreBoard.loseOil(10);
     }
 
@@ -130,11 +124,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         return true;
     }
 
-    //게임모드 뺄셈 터치
-    public boolean minusModeisHit() {
-        return true;
-    }
-
+    public boolean minusModeisHit() { return true; }
 
     private class GamePlayThread extends Thread {
         public void press(boolean press, int x, int y) {
@@ -160,21 +150,18 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
                 case GameMode:
                     if(press == true ) {
                         if (gameModeChoose.isHitPlus(x, y) == true) {
-
                             gameModeChoose.Pulspress(true);
                             scoreBoard.Plusmode(true);
                             scoreBoard.resetAnswer();
                             scoreBoard.plusreset();
                         }
                         else if(gameModeChoose.isHitMinus(x,y) == true){
-                            //Log.e("slskfl","pointM " + String.valueOf(x ) + " "+ String.valueOf(y));
                             gameModeChoose.Minuspress(true);
                             scoreBoard.Minusmode(true);
                             scoreBoard.resetAnswer();
                             scoreBoard.minusreset();
                         }
                         gameMode = GameMode.Play;
-                        scoreCount = 0;
                         balloons.reset();
                     } else if (music.isHit(x, y) == true){
                         if(music.musicOffpressed == true){
@@ -232,8 +219,8 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
                     if (press == true) {
                         if (gameCompleted.isHitBack(x, y) == true) {
                             gameMode = GameMode.GameMode;
-                            scoreCount = 0;
                             scoreBoard.plusreset();
+                            scoreBoard.minusreset();
                             balloons.reset();
                             reset.reset();
                             resetCount = 1;
@@ -279,11 +266,11 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
             music = new Music(MainActivity.this, 1600, 0);
 
             scoreBoard.resetAnswer();
-            backgroundmusic.setLooping(true);
             backgroundmusic.start();
 
             while (isRunning) {
                 Canvas canvas = surfaceHolder.lockCanvas();
+
                 if (canvas != null) {
                     canvas.drawRect(0, 0, surfaceWidth - 1, surfaceHeight - 1, skyPaint);
                     mountain.draw(canvas);
@@ -300,16 +287,15 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
                             car.draw(canvas);
                             balloons.draw(canvas);
                             oil.draw(canvas);
+                            obstacle.draw(canvas);
                             accellerator.draw(canvas);
                             brake.draw(canvas);
                             jump.draw(canvas);
-                            obstacle.draw(canvas);
                             scoreBoard.draw(canvas);
                             reset.draw(canvas);
                             break;
                         case Completed:
                             gameCompleted.draw(canvas);
-                            backgroundmusic.release();
                             break;
                     }
                     surfaceHolder.unlockCanvasAndPost(canvas);

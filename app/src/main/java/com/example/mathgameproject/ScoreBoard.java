@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.util.Log;
 
 import java.util.List;
 
@@ -26,7 +27,6 @@ public class ScoreBoard extends GameObject {
         minusmode = false;
         scoreBoardBitmap = BitmapFactory.decodeResource(mainActivity.getResources(), R.drawable.score_board);
 
-
         plusreset();
         minusreset();
         oilreset();
@@ -47,11 +47,17 @@ public class ScoreBoard extends GameObject {
         minusmode = press;
     }
 
-
     @Override
     public void draw(Canvas canvas) {
+        if(plusscore==-70){
+            mainActivity.scoreTOCompleted();
+        }
+        if(minusscore==-70){
+            mainActivity.scoreTOCompleted();
+        }
         if( plusmode == true) {
             canvas.drawBitmap(scoreBoardBitmap,scoreboardX, scoreboardY, null);
+            Log.e("slsk", String.valueOf(plusscore));
             drawText(canvas, "점수: " + plusscore, 16, 30, 25, Color.BLACK);
             drawText(canvas, "연료: " + oilnumber, 16, 70, 25, Color.BLACK);
             drawText(canvas, "문제: " + number1 + " + " + number2, 16, 110, 25, Color.BLACK);
@@ -73,9 +79,9 @@ public class ScoreBoard extends GameObject {
         } else if(minusmode == true) {
             number1 = (int) ( Math.random() *( balloonNumber / 2)) + ( balloonNumber  + 1 );
             number2 =  number1 - balloonNumber ;
-
         }
     }
+
 
     public void addPlusScore(int score) {
 
@@ -112,7 +118,9 @@ public class ScoreBoard extends GameObject {
         this.oilnumber -= oilnum;
     }
     public int getOil(){
+        Log.e("slskfl", String.valueOf(oilnumber));
         return oilnumber;
+
     }
 
 
