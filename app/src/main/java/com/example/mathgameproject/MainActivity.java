@@ -112,7 +112,6 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
 
 
     public void scoreTOCompleted(){
-
         gameMode = GameMode.Completed;
     }
 
@@ -133,6 +132,8 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
                     if (press == true && gameStart.isHit(x, y) == true) {
                         gameMode = GameMode.GameMode;
                         scoreBoard.plusreset();
+                        scoreBoard.minusreset();
+                        scoreBoard.oilreset();
                         balloons.reset();
                         reset.reset();
                         resetCount = 1;
@@ -218,14 +219,21 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
                 case Completed:
                     if (press == true) {
                         if (gameCompleted.isHitBack(x, y) == true) {
-                            gameMode = GameMode.GameMode;
+                            gameMode = GameMode.Play;
                             scoreBoard.plusreset();
                             scoreBoard.minusreset();
+                            scoreBoard.oilreset();
                             balloons.reset();
                             reset.reset();
                             resetCount = 1;
                         } else if (gameCompleted.isHitHome(x, y) == true) {
                             gameMode = GameMode.Ready;
+                            scoreBoard.plusreset();
+                            scoreBoard.minusreset();
+                            scoreBoard.oilreset();
+                            balloons.reset();
+                            reset.reset();
+                            resetCount = 1;
                         }else if (music.isHit(x, y) == true){
                             if(music.musicOffpressed == true){
                                 music.OffToOnpress(true);

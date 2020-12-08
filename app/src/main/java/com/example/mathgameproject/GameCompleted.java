@@ -20,9 +20,9 @@ public class GameCompleted extends GameObject {
 
     public void draw(Canvas canvas) {
         super.draw(canvas);
-        if (mainActivity.plusModeisHit() == true) {
+        if (mainActivity.gameModeChoose.isPressedPlus) {
             drawText(canvas, mainActivity.scoreBoard.getPlusScore() + " 점", 48, 120, 36, Color.BLACK);
-        } else if (mainActivity.minusModeisHit() == true){
+        } else if (mainActivity.gameModeChoose.isPressedMinus){
             drawText(canvas, mainActivity.scoreBoard.getMinusScore() + " 점", 48, 120, 36, Color.BLACK);
         } }
 

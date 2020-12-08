@@ -61,19 +61,28 @@ public class Balloon {
         if (isVisible == true && getCollisionRect().intersect(mainActivity.car.getCollisionRect(0.7))) {
             isVisible = false;
             fireworksIndex = 0;
-            if (mainActivity.scoreBoard.getPlusAnswer() == number) {
-                number = (int) (Math.random() * 90) + 10;
-                mainActivity.scoreBoard.addPlusScore(20);
-                mainActivity.scoreBoard.resetAnswer();
-            } else if(mainActivity.scoreBoard.getPlusAnswer() != number) {
-                mainActivity.scoreBoard.addPlusScore(-10);
-            }
-            if (mainActivity.scoreBoard.getMinusAnswer() == number) {
-                number = (int) (Math.random() * 90) + 10;
-                mainActivity.scoreBoard.addMinusScore(20);
-                mainActivity.scoreBoard.resetAnswer();
-            } else if(mainActivity.scoreBoard.getMinusAnswer() != number){
-                mainActivity.scoreBoard.addMinusScore(-10);
+            if(mainActivity.gameModeChoose.isPressedPlus){
+                if (mainActivity.scoreBoard.getPlusAnswer() == number) {
+                    number = (int) (Math.random() * 90) + 10;
+                    mainActivity.scoreBoard.addPlusScore(20);
+                    mainActivity.scoreBoard.resetAnswer();
+                } else if(mainActivity.scoreBoard.getPlusAnswer() != number) {
+                    mainActivity.scoreBoard.addPlusScore(-10);
+                }
+                if (mainActivity.scoreBoard.getPlusScore()==-70) {
+                    mainActivity.scoreTOCompleted();
+                }
+            } else if(mainActivity.gameModeChoose.isPressedMinus){
+                if (mainActivity.scoreBoard.getMinusAnswer() == number) {
+                    number = (int) (Math.random() * 90) + 10;
+                    mainActivity.scoreBoard.addMinusScore(20);
+                    mainActivity.scoreBoard.resetAnswer();
+                } else if(mainActivity.scoreBoard.getMinusAnswer() != number) {
+                    mainActivity.scoreBoard.addMinusScore(-10);
+                }
+                if(mainActivity.scoreBoard.getMinusScore()==-70){
+                    mainActivity.scoreTOCompleted();
+                }
             }
         }
 

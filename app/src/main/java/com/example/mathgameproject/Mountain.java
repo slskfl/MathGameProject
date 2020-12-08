@@ -53,9 +53,11 @@ public class Mountain  extends GameObject  {
 
     public void draw(Canvas canvas) {
 
-        if (((System.currentTimeMillis() - startTimestamp) / 10000) % 2 == 0) {
+        if (((System.currentTimeMillis() - startTimestamp) / 10000) % 4 == 0) {
             canvas.drawBitmap(mountainBitmap, mountain1X, mountainY, null);
             canvas.drawBitmap(mountainBitmap, mountain2X, mountainY, null);
+            canvas.drawBitmap(mountainBitmap, mountain3X, mountainY, null);
+            canvas.drawBitmap(mountainBitmap, mountain4X, mountainY, null);
             mountain1X -= 10;
             mountain2X -= 10;
             mountain3X -= 10;

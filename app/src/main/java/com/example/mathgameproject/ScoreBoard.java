@@ -49,15 +49,8 @@ public class ScoreBoard extends GameObject {
 
     @Override
     public void draw(Canvas canvas) {
-        if(plusscore==-70){
-            mainActivity.scoreTOCompleted();
-        }
-        if(minusscore==-70){
-            mainActivity.scoreTOCompleted();
-        }
         if( plusmode == true) {
             canvas.drawBitmap(scoreBoardBitmap,scoreboardX, scoreboardY, null);
-            Log.e("slsk", String.valueOf(plusscore));
             drawText(canvas, "점수: " + plusscore, 16, 30, 25, Color.BLACK);
             drawText(canvas, "연료: " + oilnumber, 16, 70, 25, Color.BLACK);
             drawText(canvas, "문제: " + number1 + " + " + number2, 16, 110, 25, Color.BLACK);
@@ -82,45 +75,33 @@ public class ScoreBoard extends GameObject {
         }
     }
 
-
     public void addPlusScore(int score) {
-
         this.plusscore += score;
     }
     public void addMinusScore(int score) {
-
         this.minusscore += score;
     }
     public int getPlusScore() {
-
         return plusscore;
     }
     public int getMinusScore() {
-
         return minusscore;
     }
-
     public int getPlusAnswer() {
-
         return number1 + number2;
     }
     public int getMinusAnswer() {
-
         return number1 - number2;
     }
 
     public void addOil(int oilnum){
-
         this.oilnumber += oilnum;
     }
     public void loseOil(int oilnum){
-
         this.oilnumber -= oilnum;
     }
     public int getOil(){
-        Log.e("slskfl", String.valueOf(oilnumber));
         return oilnumber;
-
     }
 
 
